@@ -19,15 +19,17 @@
   App.View.prototype.initSlideShow = function() {
     var app = this;
     for(var i = 0 ; i < this.arrows.length; i++) {
-      this.arrows.item(i).addEventListener('click',  function() { app.move(this); });
+      this.arrows.item(i).addEventListener('click',  function() {
+        app.move(this);
+      });
     }
     return this;
   };
 
-  App.View.prototype.keydownEvents = function()) {
-    var ESC = 27, LEFT = 37, RIGHT = 39, app = this;
+  App.View.prototype.keydownEvents = function() {
+    var ESC = 27, LEFT = 37, RIGHT = 39, app = this, keyCode;
     window.addEventListener('keydown', function(event) {
-      var keyCode = event.keyCode;
+      keyCode = event.keyCode;
       if (keyCode === ESC) {
         app.removeImageFromLightbox().hideLightbox();
         return;
@@ -66,7 +68,7 @@
           src: app.currNode.href,
           width: app.currNode.width,
           height: app.currNode.height
-        })).displayLightbox();
+        })).displayLightbox().toggleArrowNodeVisibility();
       }
     });
     return this;
@@ -87,23 +89,22 @@
     // set the sibling node as the new curr node
     this.currNode = siblingNode;
     // check cache or add to cache
-    var imageToLoad = this.getCachedImageElement() || this.createElementWithParams('img', {
+    var imageToLoad = this.createElementWithParams('img', {
       src: this.currNode.href,
       width: this.currNode.width,
       height: this.currNode.height
     });
     //detach current image, load next image
-    this.removeImageFromLightbox().loadImageInLightbox(imageToLoad);
-    hide = (typeof this.currNode.siblingNode === 'undefined') ?: true : false;  // figure out if the arrow will need to be displayed
-    this.toggleArrowNodeVisibility(arrow, hide);
+    this.removeImageFromLightbox().loadImageInLightbox(imageToLoad).toggleArrowNodeVisibility()
     return this;
   };
 
   // helper method to toggle the visibility for slideshow directions
-  App.View.prototype.toggleArrowNodeVisibility = function(node, hide) {
-    arrow.style.visbility = hide ? 'hidden' : 'visibile';
+  App.View.prototype.toggleArrowNodeVisibility = function() {
+    this.arrows.item(0).style.visibility = (this.currNode.previousElementSibling !== null) ? 'visible' : 'hidden';
+    this.arrows.item(1).style.visibility = (this.currNode.nextElementSibling !== null) ? 'visible' : 'hidden';
     return this;
-  }
+  };
 
   App.View.prototype.getThumbnailHyperlink = function(image) {
     var std = image.standard_resolution, tiny = image.thumbnail ;

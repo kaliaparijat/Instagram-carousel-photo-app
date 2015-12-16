@@ -37,14 +37,23 @@
               app.removeImageFromLightbox().hideLightbox();
               break;
             case LEFT:
-              app.move(app.arrows.item(0));
+              arrow = app.arrows.item(0);
+              if (!app.isArrowDisabled(arrow)) {
+                app.move(arrow);
+              }
               break;
             case RIGHT:
-              app.move(app.arrows.item(1));
+              arrow = app.arrows.item(1);
+              if (!app.isArrowDisabled(arrow))
+              app.move(arrow);
               break;
             }
           }
     });
+  };
+
+  App.View.prototype.isArrowDisabled = function(arrow) {
+    return arrow.style.visibility === 'hidden';
   };
 
   App.View.prototype.isLightBoxOpen = function() {

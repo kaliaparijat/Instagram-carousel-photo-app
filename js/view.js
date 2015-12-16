@@ -7,7 +7,7 @@
     this.thumbnails = document.getElementById('thumbnails');
     this.overlay = document.getElementById('overlay');
     this.arrows = document.getElementsByClassName('arrow');
-    this.render(images).initLightboxEvent().closeLightboxEvent().initSlideShowEvents();
+    this.render(images).initLightboxEvent().closeLightboxEvent().initSlideShowEvents().initGlobalKeydownEvents();
   };
 
   App.View.prototype.render = function(images) {
@@ -27,27 +27,28 @@
     return this;
   };
 
-  App.View.prototype.keydownEvents = function() {
-    var ESC = 27, LEFT = 37, RIGHT = 39, app = this, keyCode;
+  App.View.prototype.initGlobalKeydownEvents = function() {
+    var ESC = 27, LEFT = 37, RIGHT = 39, app = this, keyCode, arrow;
     window.addEventListener('keydown', function(event) {
       keyCode = event.keyCode;
-      if (keyCode === ESC) {
-        app.removeImageFromLightbox().hideLightbox();
-        return;
-      }
-      if (keyCode === 37 && app.isLightBoxOpen()) {
-        app.moveLeft();
-        return;
-      }
-      if (keyCode === 29 && app.isLightBoxOpen()) {
-        app.moveRight();
-        return;
-      }
-    })
+      if (app.isLightBoxOpen()) {
+          switch(keyCode) {
+            case ESC:
+              app.removeImageFromLightbox().hideLightbox();
+              break;
+            case LEFT:
+              app.move(app.arrows.item(0));
+              break;
+            case RIGHT:
+              app.move(app.arrows.item(1));
+              break;
+            }
+          }
+    });
   };
 
   App.View.prototype.isLightBoxOpen = function() {
-    return this.lightbox.style.display === 'none' && this.overlay.style.display === 'none';
+    return this.lightbox.style.display !== 'none' && this.overlay.style.display !== 'none';
   };
 
   App.View.prototype.closeLightboxEvent = function() {

@@ -4,7 +4,10 @@
 .thumbnails {
   width: 60%;
   margin: auto;
-  margin-top:5%;
+  margin-top: 5%;
+}
+.thumbnails img {
+  margin-bottom: 20px;
 }
 #overlay {
     display: none;

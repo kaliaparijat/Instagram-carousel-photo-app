@@ -1,0 +1,52 @@
+#overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    -moz-opacity: 0.8;
+    opacity:.80;
+    filter: alpha(opacity=80);
+}
+
+#lightbox {
+    display: none;
+    position: absolute;
+    top: 5%;
+    left: 25%;
+    padding: 16px;
+    border: 5px solid gray;
+    background-color: white;
+    z-index:1002;
+    overflow: hidden;
+}
+
+#lightbox .close {
+  float: right;
+}
+
+#lightbox .arrow {
+	width: 0;
+	height: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  margin-top:30%;
+}
+#lightbox .right {
+  border-left: 60px solid #d3d3d3;
+  float: right;
+}
+#lightbox .right:hover {
+  border-left: 60px solid #666666;
+}
+#lightbox .left:hover {
+  border-right:60px solid #666666;
+}
+
+#lightbox .left {
+	border-right:60px solid #d3d3d3;
+  float: left;
+}

@@ -1,12 +1,13 @@
 (function(){
 
   App.View = function(images) {
-    // DOM objects
+    this.lightboxImages =  {};     // cache for standard resolution images
+    // Global DOM objects
     this.lightbox = document.getElementById('lightbox');
     this.thumbnails = document.getElementById('thumbnails');
     this.overlay = document.getElementById('overlay');
     this.arrows = document.getElementsByClassName('arrow');
-    this.render(images).initLightboxEvent().closeLightboxEvent().initSlideShow();
+    this.render(images).initLightboxEvent().closeLightboxEvent().initSlideShowEvents();
   };
 
   App.View.prototype.render = function(images) {
@@ -16,7 +17,7 @@
     return this;
   };
 
-  App.View.prototype.initSlideShow = function() {
+  App.View.prototype.initSlideShowEvents = function() {
     var app = this;
     for(var i = 0 ; i < this.arrows.length; i++) {
       this.arrows.item(i).addEventListener('click',  function() {
@@ -58,28 +59,26 @@
   };
 
   App.View.prototype.initLightboxEvent = function() {
-    var app = this;
+    var app = this, imageToLoad;
     this.thumbnails.addEventListener('click', function(event) {
       if (event.target && event.target.nodeName === 'IMG') {
         // set the currNode to be the hyperlink of image clicked, this is globally available so we can do a slideshow
         app.currNode = event.target.parentNode;
         event.preventDefault();
-        app.loadImageInLightbox(app.createElementWithParams('img', {
-          src: app.currNode.href,
-          width: app.currNode.width,
-          height: app.currNode.height
-        })).displayLightbox().toggleArrowNodeVisibility();
+        imageToLoad = app.getImageFromHyperlink(app.currNode);
+        app.loadImageInLightbox(imageToLoad).displayLightbox().toggleArrowNodeVisibility();
       }
     });
     return this;
   };
 
-  App.View.getCachedImageElement = function() {
-    return undefined;
+  App.View.getCachedImageElement = function(href) {
+
+      return null;
   };
 
   App.View.prototype.move = function(arrow) {
-    var siblingNode, hide;
+    var siblingNode, hide, imageToLoad;
     // get the next anchor tag or previous anchor tag in the DOM depending on what direction you are going
     if (arrow.className === 'arrow right') {
         siblingNode = this.currNode.nextSibling;
@@ -88,16 +87,24 @@
     }
     // set the sibling node as the new curr node
     this.currNode = siblingNode;
-    // check cache or add to cache
-    var imageToLoad = this.createElementWithParams('img', {
-      src: this.currNode.href,
-      width: this.currNode.width,
-      height: this.currNode.height
-    });
-    //detach current image, load next image
+    imageToLoad = this.getImageFromHyperlink(this.currNode);
     this.removeImageFromLightbox().loadImageInLightbox(imageToLoad).toggleArrowNodeVisibility()
     return this;
   };
+
+  // takes a hyperlink DOM object, checks if an image element is already cached, if not, builds a new image, caches it and returns it
+  App.View.prototype.getImageFromHyperlink = function(link) {
+    if (this.lightboxImages.hasOwnProperty(link.href)) { // check if the cache already contains an image element
+      return this.lightboxImages[link.href];
+    }
+    var imageToLoad = this.createElementWithParams('img', {
+      src: link.href,
+      width: link.width,
+      height: link.height
+    });
+    this.lightboxImages[link.href] = imageToLoad; // cache this image for future
+    return imageToLoad ;
+  }
 
   // helper method to toggle the visibility for slideshow directions
   App.View.prototype.toggleArrowNodeVisibility = function() {

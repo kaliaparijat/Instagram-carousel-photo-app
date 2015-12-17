@@ -4,7 +4,7 @@
   redirectUri = 'http://localhost/slack',
   authUri = 'https://api.instagram.com/oauth/authorize/',
   responseType = 'token',
-  endPoint = 'https://api.instagram.com/v1/users/self/media/recent/' // API Endpoint for loading images
+  endPoint = 'https://api.instagram.com/v1/users/self/media/recent/',// API Endpoint for loading images
   Utils  = App.Helpers,
   accessToken = Utils.getQueryParamByName('access_token');
 

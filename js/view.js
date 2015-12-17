@@ -19,11 +19,12 @@
 
   App.View.prototype.initSlideShowEvents = function() {
     var app = this;
-    for(var i = 0 ; i < this.arrows.length; i++) {
-      this.arrows.item(i).addEventListener('click',  function() {
-        app.move(this);
-      });
-    }
+    this.arrows.item(0).addEventListener('click',  function() {
+      app.move(this);
+    });
+    this.arrows.item(1).addEventListener('click',  function() {
+      app.move(this);
+    });
     return this;
   };
 
@@ -98,7 +99,7 @@
     // set the sibling node as the new curr node
     this.currNode = siblingNode;
     imageToLoad = this.getImageFromHyperlink(this.currNode);
-    this.removeImageFromLightbox().loadImageInLightbox(imageToLoad).toggleArrowNodeVisibility()
+    this.removeImageFromLightbox().loadImageInLightbox(imageToLoad).toggleArrowNodeVisibility();
     return this;
   };
 
@@ -114,7 +115,7 @@
     });
     this.lightboxImages[link.href] = imageToLoad; // cache this image for future
     return imageToLoad ;
-  }
+  };
 
   // helper method to toggle the visibility for slideshow directions
   App.View.prototype.toggleArrowNodeVisibility = function() {

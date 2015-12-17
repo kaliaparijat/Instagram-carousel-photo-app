@@ -7,8 +7,10 @@ Instagram does not allow an app to be made visible to the general public until i
 
 To be able to view this app, please login to Instagram using the following account: 
 
-username: slackapp
-password: slackdemo
+***********TEST ACCOUNT**************
+USERNAME: slackapp
+
+PASSWORD: slackdemo
 
 and the subsequent URL: 
 

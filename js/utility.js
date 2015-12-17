@@ -15,16 +15,6 @@
         prefix = '&'; // subsequent prefixes are ampersands;
       }
       return encodeURI(uri);
-    },
-
-    filterImages: function(json) {
-      var images = [];
-          json.data.forEach(function(datum){
-            if (datum.hasOwnProperty('images')) {
-              images.push(datum.images);
-            }
-          });
     }
-
   };
 })();

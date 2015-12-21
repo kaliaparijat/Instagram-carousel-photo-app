@@ -83,11 +83,6 @@
     return this;
   };
 
-  App.View.getCachedImageElement = function(href) {
-
-      return null;
-  };
-
   App.View.prototype.move = function(arrow) {
     var siblingNode, hide, imageToLoad;
     // get the next anchor tag or previous anchor tag in the DOM depending on what direction you are going

@@ -1,23 +1,14 @@
-# slack
-A photo app for slack, written in pure javascript.  
+A carousel photoApp that consumes Instagram API for photo consumption, written in vanilla JavaScript using the MVC pattern,
 
-Please Note:
-
-Instagram does not allow an app to be made visible to the general public until it has been reviewed. Only sandbox users can be allowed to checkout an APP in sandbox mode. You can send me a request to add you as a sandbox user or use the test account to actually play with the app. 
-
-To be able to view this app with a test account, use following credentials:
+Hosted @: http://choreographer-violet-73727.bitballoon.com/
 
 ***********Test account credentials**************
 
 Username: slackapp
 
 Password: slackdemo
-
-and the subsequent URL: 
-
-http://choreographer-violet-73727.bitballoon.com/
-
-Playing with the app:
+ 
+Playing with the app should be self-explanatory, in case:
 
 1. Click a picture, opens in lightbox, 
 2. ESC closes lightbox
@@ -34,7 +25,6 @@ create, update or delete operations. Given this scope, I do not think a model wo
 that if in the future there is a need for operations on the data, I can easily pluck this out and create a new model object
 with next to negligible refactor for the current app.
 
-All in all, I had a great experience building this using pure Javascript. Thank you! 
 
 
 

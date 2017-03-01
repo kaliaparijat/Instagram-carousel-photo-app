@@ -1,4 +1,4 @@
-A carousel photoApp that consumes Instagram API for photo consumption, written in vanilla JavaScript using the MVC pattern,
+A carousel photoApp that consumes Instagram API for photo consumption, written in vanilla JavaScript. This is hosted, purely to give insight to potential employers where my abilities as a JS Frontend developer lay at the moment :) 
 
 Hosted @: http://choreographer-violet-73727.bitballoon.com/
 
